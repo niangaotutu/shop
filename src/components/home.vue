@@ -16,6 +16,7 @@
     <el-container>
       <el-aside class="aside" width="200px">
         <el-menu  class="el-menu-vertical-demo" :unique-opened="true" :router='true'>
+
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
@@ -92,6 +93,14 @@
 export default {
   data() {
     return {};
+  },
+  beforeMount(){
+      if(!localStorage.getItem("token")){
+          this.$message.warning("先登录")
+this.$router.push({
+    name:"login"
+})
+      }
   }
 };
 </script>
