@@ -30,27 +30,46 @@ export default {
   },
   methods: {
     // 发送登陆请求
-    handleLogin() {
-      this.$http.post(`login`, this.formdata).then(res=>{
-          console.log(res)
-        const {data:{
-            data,
-            meta:{
-                status,
-                msg
-            }
-        }}=res
+    // handleLogin() {
+    //   this.$http.post(`login`, this.formdata).then(res => {
+    //     const {
+    //       data: {
+    //         data,
+    //         meta: { status, msg }
+    //       }
+    //     } = res;
+    //     if (status === 200) {
+    //       // 渲染home组件
+    //       // 改标示 js改标示 编程时导航
+    //       this.$router.push({
+    //         name: "home"
+    //       });
+    //     } else {
+    //       this.$message.error(msg);
+    //     }
+    //   });
+    // }
+      async handleLogin() {
+      var res = await this.$http.post(`login`, this.formdata)
+       console.log(res)
+      const {
+          data: {
+            data:{token,id,rid},
+            meta: { status, msg }
+          }
+        } = res;
         if(status===200){
-            // 渲染home组件
-            // 改标示 js改标示 编程时导航
+            // 把正确用户token保存
+            localStorage.setItem('token',token)
+            var a = localStorage.getItem("token")
+            console.log(a)
             this.$router.push({
                 name:"home"
-                
             })
+            
         }else{
-             this.$message.error(msg);
+            this.$message.error(msg);
         }
-      });
     }
   }
 };
