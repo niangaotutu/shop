@@ -9,14 +9,13 @@
           <h2>电商后台管理系统</h2>
         </el-col>
         <el-col :span="1">
-          <a href class="exit">退出</a>
+          <a href class="exit" @click.prevent="loginout()">退出</a>
         </el-col>
       </el-row>
     </el-header>
     <el-container>
       <el-aside class="aside" width="200px">
-        <el-menu  class="el-menu-vertical-demo" :unique-opened="true" :router='true'>
-
+        <el-menu class="el-menu-vertical-demo" :unique-opened="true" :router="true">
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
@@ -37,7 +36,7 @@
               <i class="el-icon-sort-down"></i>
               <span>角色列表</span>
             </el-menu-item>
-              <el-menu-item index="1-1">
+            <el-menu-item index="1-1">
               <i class="el-icon-star-on"></i>
               <span>权限列表</span>
             </el-menu-item>
@@ -52,13 +51,13 @@
               <i class="el-icon-service"></i>
               <span>商品列表</span>
             </el-menu-item>
-             <el-menu-item index="1-1">
+            <el-menu-item index="1-1">
               <i class="el-icon-service"></i>
-               <span>分类参数</span>
+              <span>分类参数</span>
             </el-menu-item>
-             <el-menu-item index="1-1">
+            <el-menu-item index="1-1">
               <i class="el-icon-service"></i>
-               <span>商品分类</span>
+              <span>商品分类</span>
             </el-menu-item>
           </el-submenu>
 
@@ -67,18 +66,18 @@
               <i class="el-icon-location"></i>
               <span>订单管理</span>
             </template>
-             <el-menu-item index="1-1">
+            <el-menu-item index="1-1">
               <i class="el-icon-info"></i>
               <span>订单列表</span>
             </el-menu-item>
           </el-submenu>
 
-           <el-submenu index="5">
+          <el-submenu index="5">
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>数据统计</span>
             </template>
-             <el-menu-item index="1-1">
+            <el-menu-item index="1-1">
               <i class="el-icon-info"></i>
               <span>数据报表</span>
             </el-menu-item>
@@ -94,12 +93,24 @@ export default {
   data() {
     return {};
   },
-  beforeMount(){
-      if(!localStorage.getItem("token")){
-          this.$message.warning("先登录")
-this.$router.push({
-    name:"login"
-})
+  beforeMount() {
+    if (!localStorage.getItem("token")) {
+      this.$message.warning("先登录");
+      this.$router.push({
+        name: "login"
+      });
+    }
+  },
+  methods:{
+      loginout(){
+        //   q清楚token
+        localStorage.clear();
+        // 来到登陆组件
+        this.$router.push({
+            path:'login'
+        })
+        // 加提示框
+        this.$message.warning("退出成功")
       }
   }
 };

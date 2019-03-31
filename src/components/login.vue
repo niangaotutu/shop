@@ -54,13 +54,13 @@ export default {
        console.log(res)
       const {
           data: {
-            data:{token,id,rid},
+            data,
             meta: { status, msg }
           }
         } = res;
         if(status===200){
             // 把正确用户token保存
-            localStorage.setItem('token',token)
+            localStorage.setItem('token',data.token)
             var a = localStorage.getItem("token")
             console.log(a)
             this.$router.push({
